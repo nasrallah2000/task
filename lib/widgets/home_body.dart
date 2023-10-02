@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task/controller/home_controller.dart';
+import 'package:task/widgets/grid_item.dart';
+import 'package:task/widgets/home_title.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -48,6 +50,7 @@ class _HomeBodyState extends State<HomeBody> {
             elevation: 0,
             toolbarHeight: _isTitleVisible ? 70 : 50,
             centerTitle: true,
+            leading: SizedBox(),
             flexibleSpace: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 10,
@@ -137,47 +140,34 @@ class _HomeBodyState extends State<HomeBody> {
           ),
         ];
       },
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsetsDirectional.only(end: 20, top: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "الأقسام /",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
-                ),
-                Text(
-                  " الرئيسية",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.symmetric(horizontal: 30, vertical: 20),
-            child: GridView.builder(
-              physics: const BouncingScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 5,
-                crossAxisSpacing: 30,
-                mainAxisSpacing: 30,
-                mainAxisExtent: 150,
-                crossAxisCount: 2,
+      body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            const HomeTitle(),
+            Padding(
+              padding: const EdgeInsetsDirectional.symmetric(
+                horizontal: 30,
+                vertical: 10,
               ),
-              itemBuilder: (context, index) {
-                return Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(color: Colors.black),
-                );
-              },
-              shrinkWrap: true,
-              itemCount: 6,
+              child: GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                  mainAxisExtent: 150,
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (context, index) {
+                  return const GridItem();
+                },
+                shrinkWrap: true,
+                itemCount: 8,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
